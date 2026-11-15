@@ -30,6 +30,7 @@ build:
   stage: deploy
   tags: [shell]
   script:
+    - chmod 600 "$DEPLOY_SSH_KEY"
     - SSH="ssh -i $DEPLOY_SSH_KEY -o UserKnownHostsFile=$DEPLOY_KNOWN_HOSTS -o BatchMode=yes -p 2222"
     - scp -i "$DEPLOY_SSH_KEY" -o UserKnownHostsFile="$DEPLOY_KNOWN_HOSTS" -P 2222
         deploy/compose.yaml "deploy@$HOST:/srv/m12-app/compose.yaml"
